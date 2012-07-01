@@ -13,11 +13,11 @@
 # Show Splash for 4 seconds ( 1000 = 1 sec )
 #   "sample" will read <aroma-assets>/"sample".png
 #
-splash(
+#splash(
   #-- Duration 2000ms / 2 seconds
-    2000,
+#    2000,
   #-- <AROMA Resource Dir>/sample.png
-    "KRAKD-7"
+#    "KRAKD-7"
 );
 ##
 ##
@@ -32,19 +32,19 @@ splash(
 # ( green ), replace this calibrate() function with that data.
 #
 #-------- Uncomment This to insert calibrating data:
-#calibrate("1.1437","12","1.1495","23","yes");
+calibrate("1.4643","33","1.5504","36","yes");
 
 alert (
  "Welcome to",
  "KRAKD-7 by SocalDevs\n"+
  "Please learn more at www.socaldevs.com\n"+
  "\n"+
- "Thanks for your interest\n"+
+ "Thanks for downloading\n"+
  "and congrats for having a Nexus 7 :)\n"+
  "\n"+
- "Thanks!",
+ "Click OK to continue!",
  "icons/alert",
- "OK"e
+ "OK"
  );
  
 #selectbox(
