@@ -1,0 +1,71 @@
+[Specfic to HD2]
+Updated kernel to tytung HWA R3
+Facebook App should work now
+
+[This week recommended]
+ Added a new version of music
+ Optimized ringtones preview, download and select experience.
+
+[System]
+ Fixed when changing minutes, hour would change.
+ Optimization of showing actual memory total
+ Fixed issue where killing an app with long-press back would not release the memory.
+ Fixed issues with volume and camera wake
+
+[Phone]
+ Added pressing volume button to turn off call waiting beep, can also be set in the phone settings
+ Fixed issues with calling emergency
+ Fixed some cases where the answer panel would disappear
+ Fixed issue when setting a tone for no caller
+
+[Contact]
+ Added fullscreen view for contact image, click image in contact details.
+ Added option to jump to birthday on calendar in contact details
+ Added lunar birthday below the date of birth
+ When editing a contact picture, an outline of a head will show
+ Fixed issue with high resolution not showing right outline
+
+[SMS]
+ New birthday "Easter Egg" (happy birthday message on your birthday)
+ Optimized searching by contact
+ Fixed issue where CDMA could not prefix number with +
+
+[Lock screen, status bar, notification bar]
+ Added possible unlocking animations to lockscreen (shutters, folding, etc)
+ New Variety lock screen supports using the local screenshots as a picture source
+ Variety lock screen supports web query and xpath support to retrieve different parameters
+ Variety lock screen supports the 3D rotation effect (lockscreen theme support is required) 
+
+[Themes]
+ Optimized ringtones browse, listen, download and choose options
+ Fixed some theme pack size displaying as 0
+ Fixed some cases where no thumbnail would be shown
+ Fixed Youku icon to display incorrectly
+ Fixed when clicking the first item of the list, the title bar having two-state problem
+ Fixed "desktop" module not being able to be applied
+ Fixed issue where restoring from backup containing a font would cause garbled text
+
+
+[Gallery]
+ Fixed issue where when browsing pictures, image would slide around.
+ Fixed issue where wrong thumbnails were given to images
+ Fixed issue where after video playback the color was incorrect
+
+[Music]
+ Added new version of the music player 
+
+[Backup]
+ Optimized low SD reminder message
+ Fixed MMS force close when restoring high-volume backups
+
+[Settings]
+ Added setting for how long to hold the back key to kill app.
+
+[File Manager]
+ Optimize loading efficiency in file search 
+
+[Calendar]
+ New month view, list view, increase lunar
+ Optimized updating the calendar to reminder text description.
+ Repaired issue where two birthday reminders would show for one contact
+ Fuxed lunar date due to Daylight Savings Time

@@ -1,368 +1,202 @@
-##
-#
-# AROMA Installer - Installer Script
-#       (c) 2011 by Ahmad Amarullah
-#           amarullz - xda-developers
-#
-#       Version 1.60 - TEST updater-script
-#       FOR LEARNING PORPOSE ONLY
-#
-##
+#if file_getprop("/tmp/aroma-data/mods.prop","selected.1") == "3"
+#then
+#	ui_print("A2SD Setup Mode only");
+#	ui_print("Will Not Install Rom");
+#	ui_print("Make Sure you are running this after fresh Installation");
+#else
+	ui_print("[*] Mounting Partitions And Cleaning Up");
+	unmount("/system");
+	unmount("/data");
 
-##
-#
-# OLD UPDATER-BINARY
-#
-# Here you can use old command for flashing files, like:
-#  mount
-#  umount
-#  delete_recursive
-#  format
-#  package_extract_dir
-#  set_perm_recursive
-#
+	ui_print("[*] Formatting Boot...");
 
-## CHECKING Configuration from aroma-config
-#
-# Check it using if else statement, with file_getprop
-# in /tmp/aroma
-#
-# Example:
-# if
-#      file_getprop("/tmp/aroma/customize.prop","item.6.3") == "1"
-# then
-#   ... here the command ...
-# endif;
-#
-
-## INFO COMMAND FOR AROMA
-#
-#-- DIFFERENT BEHAVIOUR
-#
-# set_progress(0.5);
-#    Set Progress position: 0.0 = 0%; 0.5 = 50%; 1.0 = 100%
-#    
-# show_progress(0.2, 400);
-#    show_progress( progress size, number of files to be extracted );
-#    if we had 50 files, and want to "add" 0.2 into progress after all finished
-#    use (0.2, 50)
-#
-# show_progress(0.2, "-2000");
-#    show_progress( progress size, wait for 2000ms );
-#    For show progress with time as progress indicator, use negative value. After 2second progress will add 0.2/20% into the value
-#    use (0.2, "-2000"). Note, use quote for value "-2000"
-#
-# ui_print("@ Title");
-#    Set progress title
-#
-# ui_print("Default Text");
-#    Set Normal Log Text
-#
-##
-
-#####################################################################################################
-#
-# EXAMPLES INSTALLER SCRIPT - It won't flash anything.
-#
-# This script will use run_program("/tmp/aroma/sleep","500"); to wait the command to another command
-# in real installation, you don't need it.... so delete the lines
-#
-#
-ui_print("@INFORMATIONS");
-ui_print("This installation was used for testing only.");
-ui_print("It won't flash anything.");
-ui_print(" ");
-ui_print(" ");
-
-set_progress(0.01);
-ui_print("@Mounting & Formating Devices");
-
-set_progress(0.02);
-ui_print("  Mounting /data");
-run_program("/tmp/aroma/sleep","500");
-#
-# Example:
-# unmount("/data");
-# mount("MTD","userdata","/data");
-#
-
-set_progress(0.03);
-ui_print("  Mounting /sd-ext");
-run_program("/tmp/aroma/sleep","500");
-#
-# Example:
-# unmount("/sd-ext");
-# run_program("/sbin/busybox", "mount", "-t", "auto", "/dev/block/mmcblk0p2", "/sd-ext");
-#
-
-set_progress(0.04);
-show_progress(0.05, "-2000"); #-- Example show_progress with time as indicator for 2 second
-ui_print("  Wait for 2 Seconds");
-run_program("/tmp/aroma/sleep","2000");
-#
-# Example:
-# unmount("/system");
-# format("MTD", "system");
-#
-
-set_progress(0.09);
-ui_print("  Mounting /system");
-run_program("/tmp/aroma/sleep","500");
-#
-# Example:
-# mount("MTD", "system", "/system");
-#
-
-set_progress(0.1);
-ui_print(" ");
-ui_print("@Example Progress by Time for 10 Seconds");
-show_progress(0.3, "-10000"); #-- Example show_progress with time as indicator for 10 second
-run_program("/tmp/aroma/sleep","10000");
-set_progress(0.4);
-
-#
-# Example Extract Files
-#
-ui_print(" ");
-ui_print("@Example Progress by Files");
-ui_print("  Extracting Files Into Temporary");
-ui_print("  For Exampling Progress by files");
-show_progress(0.3, "1264");       #-- Example show_progress with files extracted as indicator - 158 x 8 Times files
-
-#-- Extract Then Delete It ( 8x )
-ui_print("  Extract 1");
-package_extract_dir("", "/tmp"); delete_recursive("/tmp/META-INF"); ui_print(" ");
-
-ui_print("  Extract 2");
-package_extract_dir("", "/tmp"); delete_recursive("/tmp/META-INF"); ui_print(" ");
-
-ui_print("  Extract 3");
-package_extract_dir("", "/tmp"); delete_recursive("/tmp/META-INF"); ui_print(" ");
-
-ui_print("  Extract 4");
-package_extract_dir("", "/tmp"); delete_recursive("/tmp/META-INF"); ui_print(" ");
-
-ui_print("  Extract 5");
-package_extract_dir("", "/tmp"); delete_recursive("/tmp/META-INF"); ui_print(" ");
-
-ui_print("  Extract 6");
-package_extract_dir("", "/tmp"); delete_recursive("/tmp/META-INF"); ui_print(" ");
-
-ui_print("  Extract 7");
-package_extract_dir("", "/tmp"); delete_recursive("/tmp/META-INF"); ui_print(" ");
-
-ui_print("  Extract 8");
-package_extract_dir("", "/tmp"); delete_recursive("/tmp/META-INF"); ui_print(" ");
-
-ui_print(" ");
-set_progress(0.7);
-
-ui_print("@Installing Customize Packages");
-show_progress(0.2, "-5700"); #-- 19 package * 300ms per package = 5700ms
-##---- Customize Packages
-	  
-    # Facebook
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.1.1") == "1"
-    then
-      ui_print("@  Installing Facebook");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-
-    # Twitter
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.1.2") == "1"
-    then
-      ui_print("@  Installing Twitter");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-    # AdobeFlashPlayer
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.1.3") == "1"
-    then
-      ui_print("@  Installing AdobeFlashPlayer");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-    # AdobeReader
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.1.4") == "1"
-    then
-      ui_print("@  Installing AdobeReader");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# EStrongFilemanager
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.2.1") == "1"
-    then
-      ui_print("@  Installing EStrongFilemanager");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# BackupEverything
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.2.2") == "1"
-    then
-      ui_print("@  Installing BackupEverything");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# DaemonController
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.2.3") == "1"
-    then
-      ui_print("@  Installing DaemonController");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# DSPManager
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.2.4") == "1"
-    then
-      ui_print("@  Installing DSPManager");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-    # BookmarksWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.1") == "1"
-    then
-      ui_print("@  Installing BookmarksWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# CalculatorWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.2") == "1"
-    then
-      ui_print("@  Installing CalculatorWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# CalendarWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.3") == "1"
-    then
-      ui_print("@  Installing CalendarWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# ContactWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.4") == "1"
-    then
-      ui_print("@  Installing ContactWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# FMRadioWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.5") == "1"
-    then
-      ui_print("@  Installing FMRadioWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# MusicWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.6") == "1"
-    then
-      ui_print("@  Installing MusicWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# QuickLaunchWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.7") == "1"
-    then
-      ui_print("@  Installing QuickLaunchWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# TrendsWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.8") == "1"
-    then
-      ui_print("@  Installing TrendsWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# GenieWidget
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.3.9") == "1"
-    then
-      ui_print("@  Installing GenieWidget");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# HTCSkins
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.4.1") == "1"
-    then
-      ui_print("@  Installing HTCSkins");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-	
-	# MoreSkins
-    if
-      file_getprop("/tmp/aroma/customize.prop","item.4.2") == "1"
-    then
-      ui_print("@  Installing MoreSkins");
-      run_program("/tmp/aroma/sleep","300");
-    endif;
-
-#--- END OF Customize
-ui_print(" ");
-set_progress(0.9);
-
-#-- Kernel
-ui_print("@Kernel & Mods");
-if
-  file_getprop("/tmp/aroma/mods.prop","selected.1") == "1"
-then
-  ui_print(" 2.6.8 Kernel");
-endif;
-
-if
-  file_getprop("/tmp/aroma/mods.prop","selected.1") == "2"
-then
-  ui_print(" 3.0.0 Kernel");
-endif;
-
-if
-  file_getprop("/tmp/aroma/mods.prop","selected.1") == "3"
-then
-  ui_print(" AROMA Kernel");
-endif;
-run_program("/tmp/aroma/sleep","500");
-set_progress(0.93);
+	set_progress(0.01);
+	ui_print("[*] Formatting System ...");
+	format("yaffs2", "MTD", "system");
+	mount("yaffs2", "MTD", "system", "/system");
+	set_progress(0.02);
+	ui_print("Copying apps to /data/app");
+	package_extract_file("check_data_app", "/tmp/check_data_app");
+	set_perm(0, 0, 0777, "/tmp/check_data_app");
+	run_program("/tmp/check_data_app");
+	mount("yaffs2", "MTD", "userdata", "/data");
+	package_extract_dir("data", "/data");
+	set_perm_recursive(1000, 1000, 0771, 0644, "/data/app");
+	set_progress(0.03);
+	run_program("/sbin/busybox", "rm", "-f", "/sdcard/Android/data/com.android.mms/cache/festival_sms.db");
+	ui_print("[*] Updating System Partition");
+	ui_print("@ Extratcing System Files");
+	show_progress(0.7, 1300);
+	package_extract_dir("system", "/system");
 
 
-#-- Boot Animation
-ui_print(" Boot Animation selected = "+file_getprop("/tmp/aroma/mods.prop","selected.2"));
-run_program("/tmp/aroma/sleep","500");
-set_progress(0.95);
 
-#-- SD-EXT Mods
-ui_print(" SD-EXT Mods selected = "+file_getprop("/tmp/aroma/mods.prop","selected.3"));
-run_program("/tmp/aroma/sleep","500");
-set_progress(0.97);
+	ui_print("[*] Installing Busybox & Toolbox");
+	symlink("/system/xbin/busybox", "/system/xbin/[", "/system/xbin/[[",
+	        "/system/xbin/arp", "/system/xbin/ash", "/system/xbin/awk",
+	        "/system/xbin/base64", "/system/xbin/basename", "/system/xbin/bbconfig",
+	        "/system/xbin/blockdev", "/system/xbin/brctl", "/system/xbin/bunzip2",
+	        "/system/xbin/bzcat", "/system/xbin/bzip2", "/system/xbin/cal",
+	        "/system/xbin/cat", "/system/xbin/catv", "/system/xbin/chattr",
+	        "/system/xbin/chgrp", "/system/xbin/chmod", "/system/xbin/chown",
+	        "/system/xbin/chroot", "/system/xbin/clear", "/system/xbin/cmp",
+	        "/system/xbin/comm", "/system/xbin/cp", "/system/xbin/cpio",
+	        "/system/xbin/crond", "/system/xbin/crontab", "/system/xbin/cut",
+	        "/system/xbin/date", "/system/xbin/dc", "/system/xbin/dd",
+	        "/system/xbin/depmod", "/system/xbin/devmem", "/system/xbin/df",
+	        "/system/xbin/diff", "/system/xbin/dirname", "/system/xbin/dmesg",
+	        "/system/xbin/dnsd", "/system/xbin/dos2unix", "/system/xbin/du",
+	        "/system/xbin/echo", "/system/xbin/ed", "/system/xbin/egrep",
+	        "/system/xbin/env", "/system/xbin/expand", "/system/xbin/expr",
+	        "/system/xbin/false", "/system/xbin/fdisk", "/system/xbin/fgrep",
+	        "/system/xbin/find", "/system/xbin/flash_lock",
+	        "/system/xbin/flash_unlock", "/system/xbin/flashcp",
+	        "/system/xbin/flock", "/system/xbin/fold", "/system/xbin/free",
+	        "/system/xbin/freeramdisk", "/system/xbin/fsync", "/system/xbin/ftpget",
+	        "/system/xbin/ftpput", "/system/xbin/fuser", "/system/xbin/getopt",
+	        "/system/xbin/grep", "/system/xbin/groups", "/system/xbin/gunzip",
+	        "/system/xbin/gzip", "/system/xbin/halt", "/system/xbin/head",
+	        "/system/xbin/hexdump", "/system/xbin/id", "/system/xbin/ifconfig",
+	        "/system/xbin/insmod", "/system/xbin/install", "/system/xbin/iostat",
+	        "/system/xbin/ip", "/system/xbin/kill", "/system/xbin/killall",
+	        "/system/xbin/killall5", "/system/xbin/length", "/system/xbin/less",
+	        "/system/xbin/ln", "/system/xbin/losetup", "/system/xbin/ls",
+	        "/system/xbin/lsattr", "/system/xbin/lsmod", "/system/xbin/lsusb",
+	        "/system/xbin/lzcat", "/system/xbin/lzma", "/system/xbin/lzop",
+	        "/system/xbin/lzopcat", "/system/xbin/man", "/system/xbin/md5sum",
+	        "/system/xbin/mesg", "/system/xbin/mkdir", "/system/xbin/mke2fs",
+	        "/system/xbin/mkfifo", "/system/xbin/mkfs.ext2",
+	        "/system/xbin/mkfs.vfat", "/system/xbin/mknod", "/system/xbin/mkswap",
+	        "/system/xbin/mktemp", "/system/xbin/modinfo", "/system/xbin/modprobe",
+	        "/system/xbin/more", "/system/xbin/mount", "/system/xbin/mountpoint",
+	        "/system/xbin/mpstat", "/system/xbin/mv", "/system/xbin/nanddump",
+	        "/system/xbin/nandwrite", "/system/xbin/netstat", "/system/xbin/nice",
+	        "/system/xbin/nohup", "/system/xbin/nslookup", "/system/xbin/ntpd",
+	        "/system/xbin/od", "/system/xbin/patch", "/system/xbin/pgrep",
+	        "/system/xbin/pidof", "/system/xbin/ping", "/system/xbin/pkill",
+	        "/system/xbin/pmap", "/system/xbin/poweroff", "/system/xbin/printenv",
+	        "/system/xbin/printf", "/system/xbin/ps", "/system/xbin/pstree",
+	        "/system/xbin/pwd", "/system/xbin/pwdx", "/system/xbin/rdev",
+	        "/system/xbin/readlink", "/system/xbin/realpath", "/system/xbin/renice",
+	        "/system/xbin/reset", "/system/xbin/resize", "/system/xbin/rev",
+	        "/system/xbin/rm", "/system/xbin/rmdir", "/system/xbin/rmmod",
+	        "/system/xbin/route", "/system/xbin/run-parts", "/system/xbin/rx",
+	        "/system/xbin/sed", "/system/xbin/seq", "/system/xbin/setconsole",
+	        "/system/xbin/setserial", "/system/xbin/setsid", "/system/xbin/sh",
+	        "/system/xbin/sha1sum", "/system/xbin/sha256sum",
+	        "/system/xbin/sha512sum", "/system/xbin/sleep", "/system/xbin/sort",
+	        "/system/xbin/split", "/system/xbin/stat", "/system/xbin/strings",
+	        "/system/xbin/stty", "/system/xbin/sum", "/system/xbin/swapoff",
+	        "/system/xbin/swapon", "/system/xbin/sync", "/system/xbin/sysctl",
+	        "/system/xbin/tac", "/system/xbin/tail", "/system/xbin/tar",
+	        "/system/xbin/tee", "/system/xbin/telnet", "/system/xbin/telnetd",
+	        "/system/xbin/test", "/system/xbin/tftp", "/system/xbin/tftpd",
+	        "/system/xbin/time", "/system/xbin/timeout", "/system/xbin/top",
+	        "/system/xbin/touch", "/system/xbin/tr", "/system/xbin/traceroute",
+	        "/system/xbin/true", "/system/xbin/ttysize", "/system/xbin/tune2fs",
+	        "/system/xbin/umount", "/system/xbin/uname", "/system/xbin/uncompress",
+	        "/system/xbin/unexpand", "/system/xbin/uniq", "/system/xbin/unix2dos",
+	        "/system/xbin/unlzma", "/system/xbin/unlzop", "/system/xbin/unxz",
+	        "/system/xbin/unzip", "/system/xbin/uptime", "/system/xbin/usleep",
+	        "/system/xbin/uudecode", "/system/xbin/uuencode", "/system/xbin/vi",
+	        "/system/xbin/watch", "/system/xbin/wc", "/system/xbin/wget",
+	        "/system/xbin/which", "/system/xbin/whoami", "/system/xbin/xargs",
+	        "/system/xbin/xz", "/system/xbin/xzcat", "/system/xbin/yes",
+	        "/system/xbin/zcat");
+	symlink("iwmulticall", "/system/xbin/iwconfig", "/system/xbin/iwgetid",
+        "/system/xbin/iwlist", "/system/xbin/iwpriv",
+        "/system/xbin/iwspy");
+	symlink("mksh", "/system/bin/sh");
+	symlink("toolbox", "/system/bin/cat", "/system/bin/chmod",
+	        "/system/bin/chown", "/system/bin/cmp", "/system/bin/date",
+	        "/system/bin/dd", "/system/bin/df", "/system/bin/dmesg",
+	        "/system/bin/getevent", "/system/bin/getprop", "/system/bin/hd",
+	        "/system/bin/id", "/system/bin/ifconfig", "/system/bin/iftop",
+	        "/system/bin/insmod", "/system/bin/ioctl", "/system/bin/ionice",
+	        "/system/bin/kill", "/system/bin/ln", "/system/bin/log",
+	        "/system/bin/ls", "/system/bin/lsmod", "/system/bin/lsof",
+	        "/system/bin/mkdir", "/system/bin/mount", "/system/bin/mv",
+	        "/system/bin/nandread", "/system/bin/netstat",
+	        "/system/bin/newfs_msdos", "/system/bin/notify", "/system/bin/printenv",
+	        "/system/bin/ps", "/system/bin/r", "/system/bin/reboot",
+	        "/system/bin/renice", "/system/bin/rm", "/system/bin/rmdir",
+	        "/system/bin/rmmod", "/system/bin/route", "/system/bin/schedtop",
+	        "/system/bin/sendevent", "/system/bin/setconsole",
+	        "/system/bin/setprop", "/system/bin/sleep", "/system/bin/smd",
+	        "/system/bin/start", "/system/bin/stop", "/system/bin/sync",
+	        "/system/bin/top", "/system/bin/touch", "/system/bin/umount",
+	        "/system/bin/uptime", "/system/bin/vmstat", "/system/bin/watchprops",
+	        "/system/bin/wipe");
+	ui_print("[*] Setting Permissions");	
+	set_perm_recursive(0, 0, 0755, 0644, "/system");
+	set_perm_recursive(0, 2000, 0755, 0755, "/system/bin");
+	set_perm(0, 3003, 02750, "/system/bin/netcfg");
+	set_perm(0, 3004, 02755, "/system/bin/ping");
+	set_perm(0, 2000, 06750, "/system/bin/run-as");
+	set_perm_recursive(1002, 1002, 0755, 0440, "/system/etc/bluetooth");
+	set_perm(0, 0, 0755, "/system/etc/bluetooth");
+	set_perm(1000, 1000, 0640, "/system/etc/bluetooth/auto_pairing.conf");
+	set_perm(3002, 3002, 0444, "/system/etc/bluetooth/blacklist.conf");
+	set_perm(1002, 1002, 0440, "/system/etc/dbus.conf");
+	set_perm(1014, 2000, 0550, "/system/etc/dhcpcd/dhcpcd-run-hooks");
 
-#-- Input Method
-ui_print(" Input Method selected = "+file_getprop("/tmp/aroma/mods.prop","selected.4"));
-run_program("/tmp/aroma/sleep","500");
-set_progress(0.98);
+	set_perm_recursive(0, 2000, 0755, 0644, "/system/vendor");
+	set_perm(0, 0, 0644, "/system/vendor/etc/audio_effects.conf");
+	set_perm_recursive(0, 0, 0755, 0644, "/system/vendor/firmware");
+	set_perm(0, 2000, 0755, "/system/vendor/firmware");
+	set_perm_recursive(0, 2000, 0755, 0755, "/system/xbin");
+	set_perm(0, 0, 06755, "/system/xbin/hcitool");
+	set_perm(0, 0, 06755, "/system/xbin/librank");
+	set_perm(0, 0, 06755, "/system/xbin/procmem");
+	set_perm(0, 0, 06755, "/system/xbin/procrank");
+	set_perm(0, 0, 06755, "/system/xbin/tcpdump");
+	set_perm(0, 0, 06755, "/system/xbin/busybox");
+	set_perm(0, 0, 06755, "/system/xbin/invoke-as");
+	set_perm(0, 0, 06755, "/system/xbin/su");
+	set_perm(0, 0, 0755, "/system/lib/liblbesec.so");
 
-#-- Camera
-ui_print(" Camera selected = "+file_getprop("/tmp/aroma/mods.prop","selected.5"));
-run_program("/tmp/aroma/sleep","500");
-set_progress(0.99);
+	symlink("/system/xbin/su", "/system/bin/su");
+	set_perm(0, 0, 06755, "/system/bin/su");
+	symlink("/system/vendor/firmware/fw_bcm4329.bin", "/system/etc/firmware/fw_bcm4329.bin");
+	symlink("/system/vendor/firmware/fw_bcm4329_apsta.bin", "/system/etc/firmware/fw_bcm4329_apsta.bin");
+	symlink("/system/fonts/Roboto-Regular.ttf", "/system/fonts/DroidSans.ttf");
+	symlink("/system/fonts/Roboto-Bold.ttf", "/system/fonts/DroidSans-Bold.ttf");
+	ui_print("[*] Installing Kernel");
 
-ui_print(" ");
-
-#-- Finish
-ui_print(" ");
-ui_print("@Finished");
-set_progress(1);
+	set_progress(0.9);
+	package_extract_file("kernel/checksys.sh","/tmp/checksys.sh");
+	set_perm(0, 0, 755, "/tmp/checksys.sh");
+	run_program("/tmp/checksys.sh");
+	if file_getprop("/tmp/nfo.prop","clk") == "true" then
+		ui_print("cLK Bootloader found."); 
+		ui_print("Flashing cLK kernel...");
+		assert(
+			package_extract_file("kernel/boot/initrd.gz", "/tmp/initrd.gz"),
+			package_extract_file("kernel/boot/zImage", "/tmp/zImage"),
+			package_extract_file("kernel/mkbootimg","/tmp/mkbootimg"),
+			package_extract_file("kernel/mkbootimg.sh","/tmp/mkbootimg.sh"));
+		set_perm(0, 0, 0755, "/tmp/mkbootimg");
+		set_perm(0, 0, 0755, "/tmp/mkbootimg.sh");
+		assert(	
+			run_program("/tmp/mkbootimg.sh"),
+				write_raw_image("/tmp/boot.img", "boot"),
+				delete("/tmp/boot.img"));
+		package_extract_dir("kernel/clk-ppp-patch", "/system");
+		set_perm(0, 0, 0777, "/system/etc/init.d/97ppp");
+	else
+		ui_print("MAGLDR Bootloader found.");
+		ui_print("Flashing MAGLDR kernel...");
+		mount("yaffs2","MTD", "boot", "/boot");
+		package_extract_dir("kernel/boot", "/boot");
+		unmount("/boot");
+		delete("/system/ppp");
+		delete("/system/etc/init.d/97ppp");
+	endif;
+set_perm_recursive(0, 2000, 0755, 0750, "/system/etc/init.d");
+set_perm(0, 0, 0755, "/system/etc/init.d");
+set_perm_recursive(0, 1001, 0755, 0775, "/system/etc/ppp");
+set_perm(0, 0, 04755, "/system/bin/pppd");
+set_progress(1.0);
+ui_print("[*] Finish");
+unmount("/system");
+	unmount("/data");
