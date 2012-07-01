@@ -18,7 +18,7 @@
 #    2000,
   #-- <AROMA Resource Dir>/sample.png
 #    "KRAKD-7"
-);
+#);
 ##
 ##
 # Calibrate Touchscreen
@@ -32,7 +32,7 @@
 # ( green ), replace this calibrate() function with that data.
 #
 #-------- Uncomment This to insert calibrating data:
-#calibrate("1.1437","12","1.1495","23","yes");
+calibrate("1.4643","33","1.5504","36","yes");
 
 alert (
  "Welcome to",
