@@ -124,7 +124,7 @@ viewbox(
     "We hope you enjoy it!\n\n\n"+
     "  VERSION : "+
 	getvar("version")+
-    " JB4.1\n"+
+    " \n"+
     "  \n"+
     "Tap next to proceed",
   
