@@ -1,20 +1,31 @@
-
+ui_print("");
+ui_print("");
+ui_print("");
+ui_print("");
+ui_print("");
+ui_print("SoCal Devs KRAKD-7");
+ui_print("");
+ui_print("SoCal Devs Team: chambo622, FadedLite, jcarrz1, vinvinvinster");
+ui_print("");
+ui_print("Contact: info@socaldevs.com");
+ui_print("");
+ui_print("Formatting partitions");
 show_progress(0.1, 0);
 format("ext4", "system", "/dev/block/platform/sdhci-tegra.3/by-name/APP");
-
+ui_print("Mounting partitions");
 mount("ext4", "system", "/dev/block/platform/sdhci-tegra.3/by-name/APP", "/system");
 mount("ext4", "data", "/dev/block/platform/sdhci-tegra.3/by-name/UDA", "/data");
 package_extract_dir("data", "/data");
-
+ui_print("Cleaning...");
 delete("/data/.battery-calibrated");
 delete_recursive("/data/dalvik-cache");
 delete_recursive("/data/resource-cache");
 delete_recursive("/sdcard/.data/navigator/Data/Temporary");
 delete_recursive("/sdcard/LazyList");
 delete_recursive("/sdcard/LOST.DIR");
-
+ui_print("Writing System Files");
 package_extract_dir("system", "/system");
-
+ui_print("Creating symlinks");
 symlink("toolbox", "/system/bin/umount");
 symlink("toolbox", "/system/bin/lsmod");
 symlink("toolbox", "/system/bin/ln");
@@ -71,7 +82,7 @@ symlink("toolbox", "/system/bin/mkdir");
 symlink("toolbox", "/system/bin/uptime");
 symlink("toolbox", "/system/bin/setprop");
 symlink("toolbox", "/system/bin/touch");
-
+ui_print("Setting permissions");
 set_perm_recursive(0, 0, 0755, 0644, "/system");
 set_perm_recursive(0, 0, 0777, 0777, "/system/etc/init.d");
 set_perm_recursive(0, 2000, 0755, 0755, "/system/bin");
@@ -95,25 +106,24 @@ set_perm(0, 2000, 0755, "/system/vendor/firmware");
 set_perm(0, 2000, 0755, "/system/vendor/lib");
 set_perm(0, 2000, 0755, "/system/vendor/lib/egl");
 set_perm(0, 2000, 0755, "/system/vendor/lib/hw");
-set_perm(1000, 1000, 0771, "/data");
-set_perm_recursive(1000, 1000, 0771, 0644, "/data/app");
 set_perm_recursive(0, 2000, 0755, 0755, "/system/xbin");
 set_perm(0, 0, 06755, "/system/xbin/su");
-
+ui_print("Creating additional symlinks");
 symlink("/system/bin/mksh", "/system/bin/sh");
 symlink("/system/fonts/Roboto-Regular.ttf","/system/fonts/DroidSans.ttf");
 symlink("/system/fonts/Roboto-Bold.ttf","/system/fonts/DroidSans-Bold.ttf");
-
+ui_print("Installing busybox");
 set_perm(0, 1000, 0755, "/system/xbin/busybox");
 symlink("/system/xbin/busybox", "/system/bin/busybox");
 show_progress(0.1, 10);
 show_progress(0.2, 0);
-
+ui_print("Flashing kernel");
 assert(package_extract_file("boot.img", "/tmp/boot.img"),
 run_program("/sbin/busybox", "dd", "if=/tmp/boot.img", "of=/dev/block/platform/sdhci-tegra.3/by-name/LNX"),
 delete("/tmp/boot.img"));
 show_progress(0.2, 10);
-
+ui_print("Unmounting partitions");
 unmount("/system");
 unmount("/data");
-
+ui_print("Rebooting.");
+run_program("/sbin/reboot");

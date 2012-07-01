@@ -13,7 +13,7 @@
 # Show Splash for 4 seconds ( 1000 = 1 sec )
 #   "sample" will read <aroma-assets>/"sample".png
 #
-#splash(
+splash(3500, "ic_launcher");
   #-- Duration 2000ms / 2 seconds
 #    2000,
   #-- <AROMA Resource Dir>/sample.png
@@ -126,7 +126,7 @@ viewbox(
 	getvar("version")+
     " \n"+
     "  \n"+
-    "Tap next to proceed",
+    "Tap next to proceed. ",
   
   #-- Icon
     "@welcome"
@@ -244,7 +244,7 @@ textbox(
 	#
 	install(
 	  "Installing",
-	  "Installing KRAKD-7\nPlease wait until finished",
+	  "Installing KRAKD-7\nYour Nexus 7 will reboot when finished.",
 	  "icons/install"
 	);
 
